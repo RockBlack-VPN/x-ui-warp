@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-AUTHOR="[hamid-gh98](https://github.com/hamid-gh98)"
+AUTHOR="[RockBlack-VPN](https://github.com/RockBlack-VPN)"
 VERSION="1.0.0"
 
 
