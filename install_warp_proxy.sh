@@ -34,7 +34,7 @@ function draw_ascii_art() {
     "
 }
 # Self-integrity: expected SHA256 checksum of this script (update after changes)
-EXPECTED_SELF_SHA256="1ca14158db8ef925da6a2bd316749fa7b6b278114635136e5beb59e0b1b05ac7"
+EXPECTED_SELF_SHA256="6fc15885ae5d232ffc1fe85c47b5c6940b760a11cc0453e6ad10f79ed5508c47"
 
 # Repo and release settings
 REPO_URL="https://github.com/MHSanaei/3x-ui.git"
