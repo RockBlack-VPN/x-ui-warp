@@ -10,7 +10,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.
 
 
 
-Удалить warp
+Удалить предыдущую версию warp
 ```
 warp u
 ```
