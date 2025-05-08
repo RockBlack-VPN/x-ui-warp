@@ -25,7 +25,7 @@ ______
 
 После того как создали подключнеи vless, перейти в `Настройки Xray / Исходящее соедиение` нажать WARP, Создать
 
-![Screenshot](https://rockblack.pro/images/warp/Screenshot_6.jpg)
+![Screenshot](https://rockblack.pro/images/warp/Screenshot_7.jpg)
 
 Затем переходим во вкладку маршрутизация, `Создать правило`
 
