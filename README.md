@@ -11,6 +11,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.
 Установить Warp на VPS/VDS сервер
 
 ```sh
+warp u
 bash <(curl -sSL https://raw.githubusercontent.com/RockBlack-VPN/x-ui-warp/main/install_warp_proxy.sh)
 ```
 Указываем порт 40000
