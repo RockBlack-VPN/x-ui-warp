@@ -15,6 +15,11 @@ bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.
 ```sh
 bash <(curl -sSL https://raw.githubusercontent.com/RockBlack-VPN/x-ui-warp/main/install_warp_proxy.sh)
 ```
+Указываем порт 40000
+
+# Настройка Warp на 3x-ui
+Создать входящее подключение vless и включить `Sniffing`
+![Screenshot](https://rockblack.pro/images/warp/Screenshot_2.jpg)
 
 ### options
 
