@@ -13,6 +13,26 @@ IFS=$'\n\t'
 AUTHOR="RockBlack-VPN"
 VERSION="1.0.1-secure"
 
+# Define colors
+red="\e[31m\e[01m"
+blue="\e[36m\e[01m"
+green="\e[32m\e[01m"
+yellow="\e[33m\e[01m"
+bYellow="\e[1;33m"
+plain="\e[0m"
+
+
+# Draw ASCII-ART
+function draw_ascii_art() {
+    echo -e "
+        ██████╗  ██████╗  ██████╗██╗  ██╗██████╗ ██╗      █████╗ ██████╗██╗  ██╗
+        ██╔══██╗██╔═══██╗██╔════╝██║ ██╔╝██╔══██╗██║     ██╔══██╗██╔════╝██║ ██╔╝
+        ██████╔╝██║   ██║██║     █████╔╝ ██████╔╝██║     ███████║██║     █████╔╝ 
+        ██╔══██╗██║   ██║██║     ██╔═██╗ ██╔══██╗██║     ██╔══██║██║     ██╔═██╗ 
+        ██║  ██║╚██████╔╝╚██████╗██║  ██╗██████╔╝███████╗██║  ██║╚██████╗██║  ██╗
+        ╚═╝  ╚═╝ ╚═════╝  ╚═════╝╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝
+    "
+}
 # Self-integrity: expected SHA256 checksum of this script (update after changes)
 EXPECTED_SELF_SHA256="1ca14158db8ef925da6a2bd316749fa7b6b278114635136e5beb59e0b1b05ac7"
 
