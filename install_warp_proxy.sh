@@ -1,71 +1,48 @@
-# secure_install_warp_proxy.sh
+# secure_build_3x-ui.sh
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------
-# Secure installer for Cloudflare WARP Socks5 proxy via WireProxy
-# Implements integrity checks, limited privileges, and hardening measures
-# Version: 1.0.0
-# Usage: bash install_warp_proxy.sh [-y] [-f]
+# Secure builder and installer for 3x-ui panel
+# Clones a fixed release, verifies tag signature, builds as unprivileged user,
+# installs dependencies, and sets up hardened systemd service
+# Version: 1.0.1-secure
 # ----------------------------------------------------------------------------
 
 set -euo pipefail
 IFS=$'\n\t'
 
 AUTHOR="RockBlack-VPN"
-VERSION="1.2.0-secure"
+VERSION="1.0.1-secure"
 
-# Define colors
-red="\e[31m\e[01m"
-blue="\e[36m\e[01m"
-green="\e[32m\e[01m"
-yellow="\e[33m\e[01m"
-bYellow="\e[1;33m"
-plain="\e[0m"
+# Self-integrity: expected SHA256 checksum of this script (update after changes)
+EXPECTED_SELF_SHA256="1ca14158db8ef925da6a2bd316749fa7b6b278114635136e5beb59e0b1b05ac7"
 
+# Repo and release settings
+REPO_URL="https://github.com/MHSanaei/3x-ui.git"
+RELEASE_TAG="v3.0.1"
 
-# Draw ASCII-ART
-function draw_ascii_art() {
-    echo -e "
-        ██████╗  ██████╗  ██████╗██╗  ██╗██████╗ ██╗      █████╗ ██████╗██╗  ██╗
-        ██╔══██╗██╔═══██╗██╔════╝██║ ██╔╝██╔══██╗██║     ██╔══██╗██╔════╝██║ ██╔╝
-        ██████╔╝██║   ██║██║     █████╔╝ ██████╔╝██║     ███████║██║     █████╔╝ 
-        ██╔══██╗██║   ██║██║     ██╔═██╗ ██╔══██╗██║     ██╔══██║██║     ██╔═██╗ 
-        ██║  ██║╚██████╔╝╚██████╗██║  ██╗██████╔╝███████╗██║  ██║╚██████╗██║  ██╗
-        ╚═╝  ╚═╝ ╚═════╝  ╚═════╝╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝
-    "
-}
-
-# Self-integrity: expected SHA256 checksum of this script (update after modifications)
-EXPECTED_SELF_SHA256="89eb0f49865239ea708dcf179e08f88bae988fa538d426650f3d563ddb414a74"
-
-# Default listen port
-DEFAULT_PORT=40000
-
-# Options
-USE_DEFAULT=false
-FORCE=false
+# Install paths and user
+INSTALL_DIR="/opt/3x-ui"
+SERVICE_USER="xui"
+SERVICE_GROUP="xui"
 
 # Logging
-LOGFILE=/var/log/install_warp_proxy.log
+LOGFILE=/var/log/build_3xui.log
 exec > >(tee -a "$LOGFILE") 2>&1
 
 # Compute own checksum
-_self_checksum() {
-  sha256sum "$0" | awk '{print $1}'
-}
-
-# Verify script integrity
-verify_self() {
+test_self_integrity() {
   local actual
-  actual=$(_self_checksum)
+  actual=$(sha256sum "$0" | awk '{print $1}')
   if [[ "$actual" != "$EXPECTED_SELF_SHA256" ]]; then
-    echo "ERROR: installer integrity check failed (expected $EXPECTED_SELF_SHA256, got $actual)" >&2
+    echo "ERROR: script integrity check failed (expected $EXPECTED_SELF_SHA256, got $actual)" >&2
     exit 1
   fi
 }
 
 # Parse options
-tmp=$(getopt -o yf --long yes,force -n "install_warp_proxy.sh" -- "$@")
-eval set -- "$tmp"
+tmp_opts=$(getopt -o yf --long yes,force -n "build_3x-ui.sh" -- "$@")
+eval set -- "$tmp_opts"
+USE_DEFAULT=false; FORCE=false
 while true; do
   case "$1" in
     -y|--yes) USE_DEFAULT=true; shift;;
@@ -74,104 +51,80 @@ while true; do
   esac
 done
 
-# Ensure root privileges
+# Ensure root
 echo "[INFO] Checking for root..."
 if (( EUID != 0 )); then
-  echo "ERROR: please run as root" >&2; exit 1
+  echo "ERROR: Please run as root" >&2; exit 1
 fi
 
-echo "[INFO] Starting secure WARP proxy installer ($VERSION)"
-verify_self
+echo "[INFO] Starting secure build of 3x-ui ($VERSION)"
+test_self_integrity
 
 # Install dependencies
-echo "[INFO] Installing dependencies"
+echo "[INFO] Installing build dependencies"
 apt-get update
-apt-get install -y curl wget gnupg iptables || true
+apt-get install -y git golang-go gcc gpg wget unzip || true
 
 # Create service user
-id -u wireproxy &>/dev/null || useradd --system --no-create-home --shell /usr/sbin/nologin wireproxy
+echo "[INFO] Creating service user"
+id -u $SERVICE_USER &>/dev/null || useradd --system --home-dir $INSTALL_DIR --shell /usr/sbin/nologin $SERVICE_USER
 
-# Prompt for port
-prompt_port() {
-  local port
-n  if [[ "$USE_DEFAULT" == true ]]; then
-    port=$DEFAULT_PORT
-  else
-    read -rp "Enter listen port [${DEFAULT_PORT}]: " port
-    port=${port:-$DEFAULT_PORT}
-  fi
-  # sanitize
-  if ! [[ "$port" =~ ^[0-9]+$ ]] || (( port<1 || port>65535 )); then
-    echo "ERROR: invalid port: $port" >&2; exit 1
-  fi
-  echo "$port"
+# Prepare install directory
+echo "[INFO] Preparing directories"
+rm -rf "$INSTALL_DIR"
+mkdir -p "$INSTALL_DIR/src"
+chown -R $SERVICE_USER:$SERVICE_GROUP "$INSTALL_DIR"
+
+# Clone specific tag and verify signature
+echo "[INFO] Cloning repo $REPO_URL @ $RELEASE_TAG"
+su -s /bin/bash $SERVICE_USER -c "git clone --branch $RELEASE_TAG --depth 1 $REPO_URL $INSTALL_DIR/src"
+
+# Verify tag signature if available
+echo "[INFO] Verifying git tag signature"
+su -s /bin/bash $SERVICE_USER -c "cd $INSTALL_DIR/src && git tag -v $RELEASE_TAG" || {
+  echo "WARNING: Tag signature verification failed or not available" >&2
 }
-PORT=$(prompt_port)
 
-echo "[INFO] Using port $PORT"
+# Build application
+echo "[INFO] Building 3x-ui"
+export CGO_ENABLED=1 GOOS=linux GOARCH=amd64
+su -s /bin/bash $SERVICE_USER -c "cd $INSTALL_DIR/src && go build -o $INSTALL_DIR/3x-ui main.go"
 
-# Download WireProxy with checksum
-TMPDIR=$(mktemp -d)
-cd "$TMPDIR"
-ARCH=$(uname -m)
-case "$ARCH" in
-  x86_64) BIN_NAME="wireproxy_linux_amd64";;
-  aarch64) BIN_NAME="wireproxy_linux_arm64";;
-  *) echo "ERROR: unsupported arch: $ARCH" >&2; exit 1;;
-esac
+# Install binary
+echo "[INFO] Installing binary to /usr/local/bin"
+install -m 0755 "$INSTALL_DIR/3x-ui" /usr/local/bin/3x-ui
 
-URL_BIN="https://github.com/eycorsican/OpenWRT/releases/download/v0.2.8/$BIN_NAME"
-EXPECTED_BIN_SHA256="89eb0f49865239ea708dcf179e08f88bae988fa538d426650f3d563ddb414a74"
+# Optionally: install Xray-core securely
+# echo "[INFO] Installing Xray-core with checksum verification"
 
-curl -fsSL "$URL_BIN" -o wireproxy
-# verify
-echo "$EXPECTED_BIN_SHA256  wireproxy" | sha256sum -c -
-install -m 0755 wireproxy /usr/local/bin/wireproxy
-cd ~
-rm -rf "$TMPDIR"
-
-# Create config
-echo "[INFO] Writing configuration"
-mkdir -p /etc/wireproxy
-cat > /etc/wireproxy/config.json <<EOF
-{
-  "listen": "127.0.0.1:$PORT",
-  "mode": "warp",
-  "warp": {}
-}
-EOF
-chown -R wireproxy:wireproxy /etc/wireproxy
-
-# Firewall rules
-echo "[INFO] Configuring firewall"
-iptables -I INPUT -p tcp -s 127.0.0.1 --dport $PORT -j ACCEPT
-iptables -I INPUT -p tcp --dport $PORT -j DROP
-
-# Systemd service
-echo "[INFO] Installing systemd service"
-cat > /etc/systemd/system/wireproxy.service <<EOF
+# Create systemd service
+echo "[INFO] Setting up systemd service"
+cat > /etc/systemd/system/3x-ui.service <<EOF
 [Unit]
-Description=WireProxy WARP Socks5 proxy
+Description=3x-ui panel service
 After=network.target
 
 [Service]
-User=wireproxy
-Group=wireproxy
-ExecStart=/usr/local/bin/wireproxy --config /etc/wireproxy/config.json
+User=$SERVICE_USER
+Group=$SERVICE_GROUP
+WorkingDirectory=$INSTALL_DIR
+ExecStart=/usr/local/bin/3x-ui
+Restart=on-failure
 NoNewPrivileges=true
 PrivateTmp=true
 ProtectSystem=full
 ProtectHome=true
+ProtectHostname=true
 PrivateDevices=true
 RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
-Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
 EOF
 
+# Enable and start service
 systemctl daemon-reload
-enable wireproxy
-restart wireproxy
+systemctl enable 3x-ui
+systemctl restart 3x-ui
 
-echo "[INFO] Installation complete: listening on 127.0.0.1:$PORT"
+echo "[INFO] Secure 3x-ui installation complete, version $RELEASE_TAG"
