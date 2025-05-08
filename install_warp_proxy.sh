@@ -35,7 +35,7 @@ function draw_ascii_art() {
 }
 
 # Self-integrity: expected SHA256 checksum of this script (update after modifications)
-EXPECTED_SELF_SHA256="<ENTER_SELF_SHA256_HERE>"
+EXPECTED_SELF_SHA256="89eb0f49865239ea708dcf179e08f88bae988fa538d426650f3d563ddb414a74"
 
 # Default listen port
 DEFAULT_PORT=40000
@@ -121,7 +121,7 @@ case "$ARCH" in
 esac
 
 URL_BIN="https://github.com/eycorsican/OpenWRT/releases/download/v0.2.8/$BIN_NAME"
-EXPECTED_BIN_SHA256="<ENTER_BIN_SHA256_HERE>"
+EXPECTED_BIN_SHA256="89eb0f49865239ea708dcf179e08f88bae988fa538d426650f3d563ddb414a74"
 
 curl -fsSL "$URL_BIN" -o wireproxy
 # verify
