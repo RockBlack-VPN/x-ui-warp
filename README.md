@@ -32,11 +32,15 @@ bash <(curl -sSL https://raw.githubusercontent.com/RockBlack-VPN/x-ui-warp/main/
 
 Domain - домены, которые нужно открыть через WARP
 
-```2ip.ru,geosite:google-gemini```
+```
+2ip.ru,geosite:google-gemini
+```
 
 Все ru, su через Warp 
 
-```geosite:category-gov-ru,regexp:.*\.ru$,regexp:.*\.su$```
+```
+geosite:category-gov-ru,regexp:.*\.ru$,regexp:.*\.su$
+```
 
 User - оставляем поле пустым, если для всех пользователей применить Warp
 
