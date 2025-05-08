@@ -26,6 +26,26 @@ bash <(curl -sSL https://raw.githubusercontent.com/RockBlack-VPN/x-ui-warp/main/
 
 ![Screenshot](https://rockblack.pro/images/warp/Screenshot_3.jpg)
 
+Затем переходим во вкладку маршрутизация, `Создать правило`
+
+Заполнить поля:
+
+Domain - домены, которые нужно открыть через WARP
+
+```2ip.ru,geosite:google-gemini```
+
+Все ru, su через Warp 
+
+```geosite:category-gov-ru,regexp:.*\.ru$,regexp:.*\.su$```
+
+User - оставляем поле пустым, если для всех пользователей применить Warp
+
+Port - 80,443
+
+Outbound Tag - warp
+
+![Screenshot](https://rockblack.pro/images/warp/Screenshot_4.jpg)
+
 ### options
 
 - `-y` => Accept default values
