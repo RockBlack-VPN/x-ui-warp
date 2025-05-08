@@ -15,6 +15,8 @@ warp u
 bash <(curl -sSL https://raw.githubusercontent.com/RockBlack-VPN/x-ui-warp/main/install_warp_proxy.sh)
 ```
 Указываем порт 40000
+
+![Screenshot](https://rockblack.pro/images/warp/Screenshot_5.jpg)
 ______
 # Настройка Warp на 3x-ui
 Создать входящее подключение vless и включить `Sniffing`
@@ -23,7 +25,7 @@ ______
 
 После того как создали подключнеи vless, перейти в `Настройки Xray / Исходящее соедиение` нажать WARP, Создать
 
-![Screenshot](https://rockblack.pro/images/warp/Screenshot_3.jpg)
+![Screenshot](https://rockblack.pro/images/warp/Screenshot_6.jpg)
 
 Затем переходим во вкладку маршрутизация, `Создать правило`
 
