@@ -1,4 +1,4 @@
-# WARP + 3x-ui
+# Установка WARP + 3x-ui
 
 ## Manual Build [3x-ui](https://github.com/MHSanaei/3x-ui)
 
