@@ -8,11 +8,15 @@ bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.
 
 ## Install [Warp](https://gitlab.com/fscarmen/warp) (on socks5 proxy) for 3x-ui
 
-Установить Warp на VPS/VDS сервер
 
+
+Удалить warp
 ```
 warp u
 ```
+
+Установить Warp на VPS/VDS сервер
+
 ```
 bash <(curl -sSL https://raw.githubusercontent.com/RockBlack-VPN/x-ui-warp/main/install_warp_proxy.sh)
 ```
