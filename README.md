@@ -22,7 +22,7 @@ bash <(curl -sSL https://raw.githubusercontent.com/RockBlack-VPN/x-ui-warp/main/
 ```
 Указываем порт 40000
 
-![Screenshot](https://rockblack.pro/images/warp/Screenshot_5.jpg)
+![Screenshot](https://rockblack.pro/images/warp/Screenshot_1.jpg)
 ______
 # Настройка Warp на 3x-ui
 Создать входящее подключение vless и включить `Sniffing`
