@@ -29,7 +29,7 @@ ______
 
 ![Screenshot](https://rockblack.pro/images/warp/Screenshot_2.jpg)
 
-После того как создали подключнеи vless, перейти в `Настройки Xray / Исходящее соедиение` нажать WARP, Создать
+После того как создали подключнеи vless, перейти в `Настройки Xray / Исходящее соедиение` нажать WARP, Создать исходящее подключение
 
 ![Screenshot](https://rockblack.pro/images/warp/Screenshot_7.jpg)
 
