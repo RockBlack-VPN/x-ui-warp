@@ -43,7 +43,7 @@ Domain - домены, которые нужно открыть через WARP
 2ip.ru,geosite:google-gemini
 ```
 
-Все ru, su через Warp 
+Или все ru, su через Warp 
 
 ```
 geosite:category-gov-ru,regexp:.*\.ru$,regexp:.*\.su$
