@@ -1,52 +1,9 @@
-# secure_install_warp_proxy.sh
 #!/bin/bash
 
 
 AUTHOR="[RockBlack-VPN](https://github.com/RockBlack-VPN)"
 VERSION="1.2.0"
 
-
-#
-# Version: 1.2.0
-# Date Created: 2023-04-18
-# Date Modified: 2023-05-30
-# 
-# Script: install_warp_proxy.sh
-# 
-# Description:
-#   This script installs Warp Socks5 Proxy (WireProxy) for your system.
-#   WireProxy is a secure and fast proxy service that routes your network traffic through Cloudflare's global network.
-# 
-# Author: [hamid-gh98](https://github.com/hamid-gh98)
-# 
-# Usage: bash ./install-warp-proxy.sh [-y] [-f]
-# 
-# Options:
-#   -y      Accept default inputs.
-#   -f      Force reinstallation of Warp Socks5 Proxy (WireProxy) even if it's already installed.
-# 
-# Note:
-#   By default, the script checks whether Warp Socks5 Proxy (WireProxy) is already installed before proceeding.
-#   Use the -y option to accept defaults.
-#   Use the -f option to force reinstallation.
-# 
-# Thanks To: [fscarmen](https://github.com/fscarmen)
-# 
-# Supported OS:
-#   1. Ubuntu
-#   2. Debian
-#   3. CentOS
-#   4. Alpine
-#   5. Arch
-#   6. Oracle
-#   7. Alma
-#   8. Rocky
-# 
-# One-Line Command for installation: (use of this commands)
-#   not-forced: `curl -fsSL https://raw.githubusercontent.com/hamid-gh98/x-ui-scripts/main/install_warp_proxy.sh | bash`
-#   not-forced: `bash <(curl -sSL https://raw.githubusercontent.com/hamid-gh98/x-ui-scripts/main/install_warp_proxy.sh)`
-#   forced: `bash <(curl -sSL https://raw.githubusercontent.com/hamid-gh98/x-ui-scripts/main/install_warp_proxy.sh) -yf`
-# 
 
 
 # Define colors
