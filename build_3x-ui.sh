@@ -1,36 +1,9 @@
-# secure_build_3x-ui.sh
 #!/bin/bash
 
 
 AUTHOR="[RockBlack-VPN](https://github.com/RockBlack-VPN)"
 VERSION="1.0.0"
 
-
-#
-# Version: 1.0.0
-# Date Created: 2023-06-08
-# Date Modified: 2023-06-08
-# 
-# Script: build_3x-ui.sh
-# 
-# Description:
-#   The script clones the 3x-ui repository and manually builds the 3x-ui panel.
-#   (https://github.com/MHSanaei/3x-ui)
-# 
-# Author: [hamid-gh98](https://github.com/hamid-gh98)
-# 
-# Usage: bash ./build_3x-ui.sh
-# 
-# Thanks To: [MHSanaei](https://github.com/MHSanaei)
-# 
-# Supported OS:
-#   1. Ubuntu
-#   2. Debian
-#   3. CentOS
-#   4. Arch
-#   5. Alma
-#   6. Rocky
-# 
 
 
 # Define colors
