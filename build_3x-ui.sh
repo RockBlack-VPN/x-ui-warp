@@ -1,9 +1,19 @@
+# secure_build_3x-ui.sh
 #!/bin/bash
 
 
 AUTHOR="[RockBlack-VPN](https://github.com/RockBlack-VPN)"
 VERSION="1.0.0"
 
+
+# Supported OS:
+#   1. Ubuntu
+#   2. Debian
+#   3. CentOS
+#   4. Arch
+#   5. Alma
+#   6. Rocky
+# 
 
 
 # Define colors
@@ -67,6 +77,109 @@ PKG_UPDATE=("apt -y update" "apt -y update" "yum -y update" "yum -y update")
 PKG_INSTALL=("apt -y --fix-broken install" "apt -y --fix-broken install" "yum -y install" "yum -y install")
 PKG_UNINSTALL=("apt -y autoremove" "apt -y autoremove" "yum -y autoremove" "yum -y autoremove")
 
+
+# ===============================
+# *********** Message ***********
+# ===============================
+declare -A T
+# base
+T[000]="Option requires an argument:"
+T[001]="Invalid option:"
+T[002]="Invalid choice."
+T[003]=""
+T[004]=""
+T[005]="[INFO]"
+T[006]="[ALERT]"
+T[007]="[ERROR]"
+T[008]="[DEBUG]"
+T[009]="[WARNING]"
+# intro
+T[010]="Thanks for using this script . \n  Please give a star on github if you find this script useful!"
+T[011]="Version:"
+T[012]="Author:"
+T[013]=""
+T[014]="Options:"
+T[015]=""
+T[016]=""
+T[017]=""
+T[018]=""
+T[019]=""
+# alert_install
+T[020]="** Caution **"
+T[021]="You are about to uninstall the '3x-ui' panel (if installed) \n  and manually build and install it from the repo.\n  If you want to abort this process, exit this script by pressing 'Ctrl + C' NOW!"
+T[022]=""
+T[023]=""
+T[024]=""
+# prompts for Run stage => install go and 3x-ui
+T[025]="Are you sure you want to manually build and instal the '3x-ui' panel?"
+T[026]="Do you want to reinstall the latest version of 'go'? (It's required to build the '3x-ui' panel)"
+T[027]="Do you want to uninstall 'go'?"
+T[028]=""
+T[029]=""
+T[030]=""
+T[031]=""
+T[032]=""
+T[033]=""
+T[034]=""
+T[035]=""
+T[036]=""
+T[037]=""
+T[038]=""
+T[039]=""
+# show_warnings
+T[040]="You're using this options:"
+T[041]=""
+T[042]=""
+T[043]=""
+T[044]=""
+T[045]=""
+T[046]=""
+T[047]=""
+T[048]=""
+T[049]=""
+# prompts
+T[050]="Default"
+T[051]="Exceeded maximum attempts. Exiting..."
+T[052]="Remaining attempts:"
+T[053]="Last attempt! Remaining attempt:"
+T[054]="Please enter a port for"
+T[055]="Oops! Invalid input. Please enter a port between 1 and 65535."
+T[056]="Oops! The port is already in use. Please choose another port between 1 and 65535!"
+T[057]=""
+T[058]=""
+T[059]=""
+# check_root
+T[060]="Verifying root access..."
+T[061]="Please run this script as root!"
+T[062]="Great News! You have Superuser privileges. Let's continue..."
+# check_os
+T[063]="Verifying if your OS is supported..."
+T[064]="Unfortunately, your OS is not supported at this time! \n  The script supports Debian, Ubuntu, CentOS, Arch or Alpine systems only.\n"
+T[065]="Your os is compatible with this installation. Moving forward..."
+# install_base_packages
+T[066]="Installing essential packages for your OS..."
+T[067]="There was an error during the installation of essential packages! \n  Please check your connection or try again later."
+T[068]="All required packages have been successfully installed."
+# make_folders
+T[069]="Making necessary folders..."
+T[070]="Failed to make required folders!"
+T[071]="Made required folder successfully. Moving forward..."
+# uninstall_go
+T[072]="Unstalling 'go'..."
+T[073]="Failed to uninstall 'go'!"
+T[074]="Successfully uninstalled 'go'."
+# install_go
+T[075]="Installing 'go'..."
+T[076]="Failed to install 'go'!"
+T[077]="Successfully installed 'go'."
+# uninstall_3xui
+T[078]="Unstalling '3x-ui'..."
+T[079]="Failed to uninstall '3x-ui'!"
+T[080]="Successfully uninstalled '3x-ui'."
+# install_3xui
+T[081]="Installing '3x-ui'..."
+T[082]="Failed to install '3x-ui'!"
+T[083]="Successfully installed '3x-ui'."
 
 
 # ===============================
