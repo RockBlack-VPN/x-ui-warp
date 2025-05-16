@@ -17,11 +17,7 @@ VERSION="1.2.0"
 #   7. Alma
 #   8. Rocky
 # 
-# One-Line Command for installation: (use of this commands)
-#   not-forced: `curl -fsSL https://raw.githubusercontent.com/hamid-gh98/x-ui-scripts/main/install_warp_proxy.sh | bash`
-#   not-forced: `bash <(curl -sSL https://raw.githubusercontent.com/hamid-gh98/x-ui-scripts/main/install_warp_proxy.sh)`
-#   forced: `bash <(curl -sSL https://raw.githubusercontent.com/hamid-gh98/x-ui-scripts/main/install_warp_proxy.sh) -yf`
-# 
+
 
 
 # Define colors
